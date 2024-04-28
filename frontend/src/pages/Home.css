@@ -1,0 +1,14 @@
+.home__bg {
+    /* background-image: url('https://www.brlsi.org/wp-content/uploads/2023/09/UoB-Roundtable-Image-royalty-free-scaled.jpg'); */
+    background-image: url('../assets/bg.jpg');
+    height: 92vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+
+.home--message-icon {
+    margin-left: 10px;
+    display: inline-block;
+}
