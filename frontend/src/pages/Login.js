@@ -1,17 +1,25 @@
 import {Col, Row, Container, Button, Form } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import './Login.css';
+import { useState } from 'react';
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleLogin(e){
+    e.prevendDefault();
+  }
+
   return (
     <Container>
       <Row>
         <Col md = {5} className="login__bg"></Col>
         <Col md ={7} className='d-flex align-items-center justify-content-center flex-direction-column' > 
-        <Form style={{width: '80%', maxWidth: 500}}>
+        <Form style={{width: '80%', maxWidth: 500}} onSubmit={handleLogin}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="email" placeholder="Enter email" onChange={(e) => {setEmail(e.target.value)}} value = {email} required/>
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
@@ -19,7 +27,7 @@ function Login() {
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control type="password" placeholder="Enter password" onChange={(e) => {setPassword(e.target.value)}} value = {password} required/>
       </Form.Group>
       <Button variant="primary" type="submit">
         Login
