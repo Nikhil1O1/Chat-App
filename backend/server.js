@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
 
 const rooms = ['general', 'tech', 'finance', 'crypto'];
 const cors = require("cors");
-
+app.use(express.json());  //keep this before routes else you will have issue in parsing params
+app.use('/users',userRoutes)
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
 app.use(cors());
 
 mongoose.connect(process.env.MONGO_DB).then(

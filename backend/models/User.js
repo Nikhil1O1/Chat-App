@@ -20,8 +20,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'required'],
     },
     passwordCnf:{
-        type:String,
-        required: [true, 'required'],
+        type:String
     },
     picture:{
         type:String,
@@ -36,6 +35,29 @@ const userSchema = new mongoose.Schema({
     }
     },
 {minimized: false});
+
+userSchema.pre('save', function(next){
+    const user = this;
+    if(!user.isModified('password')) return next();
+
+    bcrypt.genSalt(10, (err, salt) => {
+        if(err) return next(err);
+        bcrypt.hash(user.password, salt, (err, hash) => {
+            if(err) return next(err);
+            user.password = hash;
+            user.passwordCnf = null;
+            next();
+        })
+    })
+})
+
+userSchema.methods.toJSON = function(){
+    const user = this;
+    const userObject = user.toObject();
+    delete userObject.password;
+    delete userObject.passwordCnf;
+    return userObject;
+}
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({email});
