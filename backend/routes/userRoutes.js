@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 
 //user
-router.post('/signup', async(req, res)=>{
+router.post('/', async(req, res)=>{
     try{
         const {name,email,password,picture} = req.body;
         console.log(req.body)
